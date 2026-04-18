@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroConnect — Digital Farming Platform</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="overlay" id="sidebar-overlay" onclick="AC_STATE.closeSidebar()"></div>
+
+<!-- TOAST -->
+<div class="toast" id="global-toast"></div>
+
+<!-- ══════════════════════════════════════
+     AUTH WRAPPER — no header/sidebar
+════════════════════════════════════════ -->
+<div id="auth-wrapper">
+  <div id="auth-content"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     APP WRAPPER — header + sidebar only
+════════════════════════════════════════ -->
+<div id="app-wrapper" style="display:none">
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="hamburger" id="hamburger-btn" onclick="AC_STATE.toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="header-logo" onclick="AC_STATE.navigate('home')" style="cursor:pointer;">
+      <div class="logo-mark">A</div>
+      <div class="logo-text">
+        <strong>AgroConnect</strong>
+        <span>Digital Farming Platform</span>
+      </div>
+    </a>
+
+    <div class="header-search hide-mobile">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Search seeds, courses, experts..."
+        id="header-search-input"
+        oninput="AC_STATE.searchQuery = this.value"
+      >
+    </div>
+
+    <div class="header-actions">
+      <button class="header-icon-btn" onclick="AC_STATE.navigate('notifications')" title="Notifications">
+        🔔
+        <span class="notif-dot" id="notif-dot" style="display:none;"></span>
+      </button>
+      <button class="header-user" onclick="AC_STATE.navigate('profile')">
+        <div class="user-avatar" id="user-avatar">TB</div>
+        <span class="user-name hide-mobile" id="user-name">Farmer</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- MAIN NAV — all roles see this -->
+    <nav class="nav-role-section">
+      <div class="nav-item" data-screen="home" onclick="AC_STATE.navigate('home')">
+        <span class="nav-icon">🏠</span> Home
+      </div>
+      <div class="nav-item" data-screen="seed-market" onclick="AC_STATE.navigate('seed-market')">
+        <span class="nav-icon">🌱</span> Seed Market
+      </div>
+      <div class="nav-item" data-screen="learning" onclick="AC_STATE.navigate('learning')">
+        <span class="nav-icon">📖</span> Learning
+      </div>
+      <div class="nav-item" data-screen="experts" onclick="AC_STATE.navigate('experts')">
+        <span class="nav-icon">👥</span> Experts
+      </div>
+      <div class="nav-item" data-screen="financing" onclick="AC_STATE.navigate('financing')">
+        <span class="nav-icon">💳</span> Financing
+      </div>
+      <div class="nav-item" data-screen="logistics" onclick="AC_STATE.navigate('logistics')">
+        <span class="nav-icon">🚚</span> Logistics
+      </div>
+      <div class="nav-item" data-screen="wallet" onclick="AC_STATE.navigate('wallet')">
+        <span class="nav-icon">💰</span> Wallet
+      </div>
+    </nav>
+
+    <!-- SELLER NAV -->
+    <div data-role="seller" style="display:none">
+      <hr class="nav-divider">
+      <div class="nav-group-label">Seller Account</div>
+      <div class="nav-item" data-screen="seller-dashboard" onclick="AC_STATE.navigate('seller-dashboard')">
+        <span class="nav-icon">📊</span> Seller Dashboard
+      </div>
+      <div class="nav-item" data-screen="my-listings" onclick="AC_STATE.navigate('my-listings')">
+        <span class="nav-icon">📦</span> My Listings
+      </div>
+      <div class="nav-item" data-screen="orders-received" onclick="AC_STATE.navigate('orders-received')">
+        <span class="nav-icon">🛒</span> Orders Received
+      </div>
+      <div class="nav-item" data-screen="seller-analytics" onclick="AC_STATE.navigate('seller-analytics')">
+        <span class="nav-icon">📈</span> Seller Analytics
+      </div>
+    </div>
+
+    <!-- EXPERT NAV -->
+    <div data-role="expert" style="display:none">
+      <hr class="nav-divider">
+      <div class="nav-group-label">Expert Account</div>
+      <div class="nav-item" data-screen="expert-dashboard" onclick="AC_STATE.navigate('expert-dashboard')">
+        <span class="nav-icon">🎓</span> Expert Dashboard
+      </div>
+      <div class="nav-item" data-screen="my-courses" onclick="AC_STATE.navigate('my-courses')">
+        <span class="nav-icon">📚</span> My Courses
+      </div>
+      <div class="nav-item" data-screen="course-analytics" onclick="AC_STATE.navigate('course-analytics')">
+        <span class="nav-icon">📈</span> Course Analytics
+      </div>
+    </div>
+
+    <!-- COOPERATIVE NAV -->
+    <div data-role="cooperative" style="display:none">
+      <hr class="nav-divider">
+      <div class="nav-group-label">Cooperative</div>
+      <div class="nav-item" data-screen="coop-dashboard" onclick="AC_STATE.navigate('coop-dashboard')">
+        <span class="nav-icon">🤝</span> Coop Dashboard
+      </div>
+      <div class="nav-item" data-screen="coop-members" onclick="AC_STATE.navigate('coop-members')">
+        <span class="nav-icon">👨‍👩‍👧‍👦</span> Members
+      </div>
+      <div class="nav-item" data-screen="coop-loan" onclick="AC_STATE.navigate('coop-loan')">
+        <span class="nav-icon">🏦</span> Loan Request
+      </div>
+      <div class="nav-item" data-screen="coop-wallet" onclick="AC_STATE.navigate('coop-wallet')">
+        <span class="nav-icon">💰</span> Group Wallet
+      </div>
+    </div>
+
+    <!-- INSTITUTION NAV -->
+    <div data-role="institution" style="display:none">
+      <hr class="nav-divider">
+      <div class="nav-group-label">Institution</div>
+      <div class="nav-item" data-screen="inst-dashboard" onclick="AC_STATE.navigate('inst-dashboard')">
+        <span class="nav-icon">🏛️</span> Dashboard
+      </div>
+      <div class="nav-item" data-screen="inst-compliance" onclick="AC_STATE.navigate('inst-compliance')">
+        <span class="nav-icon">🔒</span> Spend Compliance
+      </div>
+      <div class="nav-item" data-screen="inst-loan-queue" onclick="AC_STATE.navigate('inst-loan-queue')">
+        <span class="nav-icon">📋</span> Loan Queue
+      </div>
+      <div class="nav-item" data-screen="inst-geo-map" onclick="AC_STATE.navigate('inst-geo-map')">
+        <span class="nav-icon">🗺️</span> Geo Map
+      </div>
+    </div>
+
+    <!-- BOTTOM SIDEBAR — all roles -->
+    <div class="sidebar-bottom">
+      <hr class="nav-divider">
+      <div class="nav-item" data-screen="profile" onclick="AC_STATE.navigate('profile')">
+        <span class="nav-icon">👤</span> Profile
+      </div>
+      <div class="nav-item" data-screen="whatsapp" onclick="AC_STATE.navigate('whatsapp')">
+        <span class="nav-icon">💬</span> WhatsApp Bot
+      </div>
+      <div class="nav-item" data-screen="settings" onclick="AC_STATE.navigate('settings')">
+        <span class="nav-icon">⚙️</span> Settings
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div id="app-content" class="animate-fadeIn"></div>
+  </main>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="js/data.js"></script>
+<script src="js/state.js"></script>
+<script src="js/router.js"></script>
+<script src="js/screens.js"></script>
+
+<script>
+/* BOOT */
+document.addEventListener('DOMContentLoaded', () => {
+  AC_STATE.init();
+  setTimeout(() => {
+    showAuthScreen('splash');
+  }, 100);
+});
+
+/* Show auth screens — full screen, no shell */
+function showAuthScreen(screen) {
+  document.getElementById('auth-wrapper').style.display = 'block';
+  document.getElementById('app-wrapper').style.display  = 'none';
+  const contentEl = document.getElementById('auth-content');
+  if (!contentEl) return;
+  const fn = AC_SCREENS[screen];
+  if (fn) {
+    contentEl.innerHTML = fn.call(AC_SCREENS);
+    // Run post-render if OTP
+    if (screen === 'otp') AC_SCREENS.initOtpInputs();
+  } else {
+    contentEl.innerHTML = '<p style="padding:20px;color:red;">Screen not found: ' + screen + '</p>';
+  }
+}
+
+/* Switch to main app after login */
+function showApp(role) {
+  AC_STATE.setRole(role);
+  document.getElementById('auth-wrapper').style.display = 'none';
+  document.getElementById('app-wrapper').style.display  = 'block';
+
+  // Update header user info
+  document.getElementById('user-avatar').textContent = AC_STATE.user.initials;
+  document.getElementById('user-name').textContent   = AC_STATE.user.name.split(' ')[0];
+
+  // Show notification dot
+  if (AC_STATE.unreadNotifs > 0) {
+    const dot = document.getElementById('notif-dot');
+    if (dot) dot.style.display = 'block';
+  }
+
+  // Show role-specific sidebar sections
+  AC_STATE.updateSidebarForRole();
+
+  // Go to home
+  AC_STATE.navigate('home');
+}
+</script>
+
+</body>
+</html>
