@@ -1,0 +1,21 @@
+{
+  "name": "AgroConnect",
+  "short_name": "AgroConnect",
+  "description": "Nigeria's agricultural marketplace — inputs, experts, and financing in one app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1E8B4C",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["business", "food", "shopping"],
+  "lang": "en-NG",
+  "shortcuts": [
+    { "name": "Market",        "url": "/?screen=input-market",  "description": "Browse agricultural inputs" },
+    { "name": "My Orders",     "url": "/?screen=order-history", "description": "View your orders"           },
+    { "name": "Wallet",        "url": "/?screen=wallet",        "description": "Check your balance"         }
+  ]
+}

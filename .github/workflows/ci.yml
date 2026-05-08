@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  backend:
+    name: Backend — typecheck, lint, test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npm run db:generate
+
+      - name: TypeScript typecheck
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm test
+        env:
+          NODE_ENV: test
+          LOG_LEVEL: silent
+          JWT_ACCESS_SECRET:  ${{ secrets.JWT_ACCESS_SECRET  || 'ci_access_secret_placeholder_32chars' }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET || 'ci_refresh_secret_placeholder_32chars' }}
+
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+        continue-on-error: true   # warn only, don't block CI
+
+  frontend:
+    name: Frontend — syntax check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check JS syntax (all screen files)
+        run: |
+          for f in \
+            js/api.js \
+            js/state.js \
+            js/router.js \
+            js/screens/data-layer.js \
+            js/screens/ui-helpers.js \
+            js/screens/auth/auth.js \
+            js/screens/farmer/farmer.js \
+            js/screens/supplier/supplier.js \
+            js/screens/shared/shared.js \
+            js/screens/expert/expert.js \
+            js/screens/cooperative/cooperative.js \
+            js/screens/institution/institution.js \
+            js/screens/whatsapp/whatsapp.js; do
+            node --check "$f" && echo "✓ $f" || (echo "✗ $f" && exit 1)
+          done

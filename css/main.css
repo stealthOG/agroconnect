@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   AGROCONNECT — MAIN.CSS
+   AGROCONNECT - MAIN.CSS
    Global tokens, typography, resets, utilities
    ═══════════════════════════════════════════════════════════ */
 
@@ -517,7 +517,7 @@ ul, ol { list-style: none; }
 
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
-   Mobile first — scale up
+   Mobile first - scale up
    ═══════════════════════════════════════════════════════════ */
 
 /* Mobile: default (360px+) */
@@ -543,4 +543,171 @@ ul, ol { list-style: none; }
 
 @media (min-width: 1024px) {
   .hide-desktop { display: none !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   ACCESSIBILITY
+══════════════════════════════════════════ */
+
+/* Skip-to-content link */
+.skip-link {
+  position: fixed;
+  top: -9999px;
+  left: 8px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--green);
+  color: white;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  text-decoration: none;
+  transition: top .15s;
+}
+.skip-link:focus { top: 0; }
+
+/* Visible focus rings for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Remove focus ring for mouse users only */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Screen-reader-only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Touch-target minimum size (44×44px per WCAG 2.5.5) */
+button, [role="button"] { min-height: 44px; min-width: 44px; }
+/* Allow smaller nav icons to override when intentional */
+.nav-icon-sm { min-height: unset; min-width: unset; }
+
+
+/* ══════════════════════════════════════════
+   CSS UTILITY CLASSES (extracted from inline styles)
+   Use these instead of style="" where possible
+══════════════════════════════════════════ */
+
+/* ── Typography shortcuts ── */
+.text-xs      { font-size: var(--text-xs); }
+.text-sm      { font-size: var(--text-sm); }
+.text-base    { font-size: var(--text-base); }
+.text-md      { font-size: var(--text-md); }
+.text-lg      { font-size: var(--text-lg); }
+.text-xl      { font-size: var(--text-xl); }
+.text-2xl     { font-size: var(--text-2xl); }
+
+.fw-400 { font-weight: 400; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+
+.text-gray-400 { color: var(--gray-400); }
+.text-gray-500 { color: var(--gray-500); }
+.text-gray-600 { color: var(--gray-600); }
+.text-gray-700 { color: var(--gray-700); }
+.text-gray-800 { color: var(--gray-800); }
+.text-gray-900 { color: var(--gray-900); }
+.text-green    { color: var(--green); }
+.text-white    { color: white; }
+
+/* ── Common text combinations ── */
+.label-sm   { font-size: var(--text-sm);  font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 6px; }
+.caption    { font-size: var(--text-xs);  color: var(--gray-400); }
+.caption-md { font-size: var(--text-xs);  color: var(--gray-500); }
+.body-sm    { font-size: var(--text-sm);  color: var(--gray-600); line-height: 1.5; }
+.page-title-lg { font-size: var(--text-2xl); font-weight: 700; color: var(--gray-900); }
+.section-title { font-size: var(--text-md); font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+
+/* ── Spacing helpers ── */
+.mb-0  { margin-bottom: 0; }
+.mb-4  { margin-bottom: 4px; }
+.mb-6  { margin-bottom: 6px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mt-4  { margin-top: 4px; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.gap-8  { gap: 8px; }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-14 { gap: 14px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+
+/* ── Layout helpers ── */
+.flex-col    { display: flex; flex-direction: column; }
+.items-start { align-items: flex-start; }
+.items-end   { align-items: flex-end; }
+.wrap        { flex-wrap: wrap; }
+.flex-1      { flex: 1; }
+.min-w-0     { min-width: 0; }
+
+/* ── Surface / background ── */
+.surface-white  { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-md); }
+.surface-gray   { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); }
+.surface-green  { background: var(--green-pale); border: 1px solid var(--green-mid); border-radius: var(--radius-md); }
+
+/* ── Pill badge ── */
+.badge-pill {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+}
+.badge-success { background: #DCFCE7; color: #16A34A; }
+.badge-warning { background: #FEF3C7; color: #D97706; }
+.badge-danger  { background: #FEE2E2; color: #DC2626; }
+.badge-gray    { background: var(--gray-100); color: var(--gray-600); }
+.badge-purple  { background: #EDE9FE; color: #7C3AED; }
+.badge-blue    { background: #DBEAFE; color: #1D4ED8; }
+
+/* ── Form input standard height ── */
+.form-select {
+  width: 100%; height: 44px; padding: 0 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font);
+  background: white;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.form-select:focus { border-color: var(--green); outline: none; }
+
+/* ── Shimmer animation (also in ui-helpers inline) ── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.skeleton {
+  animation: shimmer 1.4s infinite linear;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 800px 100%;
+  border-radius: 6px;
 }

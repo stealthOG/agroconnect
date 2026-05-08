@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   AGROCONNECT — SCREENS.JS
+   AGROCONNECT - SCREENS.JS
    All screen render functions
    ═══════════════════════════════════════════════════════════ */
 
@@ -50,9 +50,9 @@ roleSelection() {
     <div style="max-width:1100px;margin:-52px auto 0;padding:0 24px 48px;">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;" class="role-grid-3">
         ${[
-          { id:'buyer',  emoji:'🛒', bg:'#e8f5ee', title:"I'm a Buyer",   desc:'I want to buy seeds, farm inputs, and connect with agricultural experts', btn:'Continue as Buyer' },
-          { id:'seller', emoji:'🌾', bg:'#fef9c3', title:"I'm a Seller",  desc:'I want to sell seeds, farm produce, and reach more customers', btn:'Continue as Seller' },
-          { id:'expert', emoji:'📖', bg:'#ede9fe', title:"I'm an Expert", desc:'Create and monetize courses, offer paid consultations', btn:'Continue as Expert' },
+          { id:'buyer',  emoji:'🌱', bg:'#e8f5ee', title:"I'm a Buyer",   desc:'I want to buy seeds, farm inputs, and connect with agricultural experts', btn:'Continue as Buyer' },
+          { id:'seller', emoji:'🌱', bg:'#fef9c3', title:"I'm a Seller",  desc:'I want to sell seeds, farm produce, and reach more customers', btn:'Continue as Seller' },
+          { id:'expert', emoji:'🌱', bg:'#ede9fe', title:"I'm an Expert", desc:'Create and monetize courses, offer paid consultations', btn:'Continue as Expert' },
         ].map(r => `
           <div onclick="showAuthScreen('signup${r.id.charAt(0).toUpperCase()+r.id.slice(1)}')" style="
             background:white;border-radius:16px;padding:32px 20px 28px;cursor:pointer;
@@ -72,7 +72,7 @@ roleSelection() {
         <div onclick="showAuthScreen('signupCoop')" style="background:white;border-radius:16px;padding:32px 20px 28px;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.08);border:2px solid transparent;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;"
           onmouseover="this.style.borderColor='#1E8B4C';this.style.transform='translateY(-3px)'"
           onmouseout="this.style.borderColor='transparent';this.style.transform='translateY(0)'">
-          <div style="width:72px;height:72px;background:#e0f0fb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🤝</div>
+          <div style="width:72px;height:72px;background:#e0f0fb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🌱</div>
           <h3 style="font-size:18px;font-weight:700;color:#111827;margin-bottom:8px;">Cooperative Manager</h3>
           <p style="font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:20px;">Manage your cooperative, access group loans and bulk inputs from financial institutions</p>
           <button style="width:100%;padding:11px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;">Continue as Cooperative</button>
@@ -80,9 +80,9 @@ roleSelection() {
         <div onclick="showAuthScreen('signupInstitution')" style="background:white;border-radius:16px;padding:32px 20px 28px;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.08);border:2px solid transparent;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;"
           onmouseover="this.style.borderColor='#5b3fe0';this.style.transform='translateY(-3px)'"
           onmouseout="this.style.borderColor='transparent';this.style.transform='translateY(0)'">
-          <div style="width:72px;height:72px;background:#eeeafc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🏛️</div>
+          <div style="width:72px;height:72px;background:#eeeafc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🌱️</div>
           <h3 style="font-size:18px;font-weight:700;color:#111827;margin-bottom:8px;">Institution / Bank</h3>
-          <p style="font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:20px;">Financial institutions — manage disbursements, monitor spend compliance in real-time</p>
+          <p style="font-size:13px;color:#6b7280;line-height:1.5;margin-bottom:20px;">Financial institutions - manage disbursements, monitor spend compliance in real-time</p>
           <button style="width:100%;padding:11px;background:#5b3fe0;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;">Continue as Institution</button>
         </div>
       </div>
@@ -105,7 +105,7 @@ login() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:28px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:14px;margin-bottom:32px;">Join thousands of farmers growing their business digitally</p>
-        <div style="font-size:72px;margin-bottom:32px;">🔐</div>
+        <div style="font-size:72px;margin-bottom:32px;">🌱</div>
         <div style="text-align:left;display:inline-block;">
           ${['Access verified seed suppliers','Connect with agric experts','Get agricultural financing','Track orders & deliveries'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
@@ -127,7 +127,7 @@ login() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password</label>
         <input type="password" class="form-input" placeholder="Enter your password" id="login-password" style="padding-right:48px;">
-        <button onclick="togglePassword('login-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('login-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
@@ -144,8 +144,8 @@ login() {
         <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔴 Google</button>
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔵 Facebook</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Google</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Facebook</button>
       </div>
       <p style="text-align:center;font-size:14px;color:#6b7280;">Don't have an account? <span onclick="showAuthScreen('roleSelection')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Sign up</span></p>
     </div>
@@ -160,7 +160,7 @@ signupBuyer() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:24px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:32px;">Join thousands of farmers growing their business digitally</p>
-        <div style="font-size:72px;margin-bottom:28px;">🛒</div>
+        <div style="font-size:72px;margin-bottom:28px;">🌱</div>
         <div style="text-align:left;display:inline-block;">
           ${['Access verified seed suppliers','Connect with agric experts','Get agricultural financing','Track orders & deliveries'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
@@ -193,7 +193,7 @@ signupBuyer() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password <span style="color:#dc2626;">*</span></label>
         <input type="password" class="form-input" placeholder="Create a password (min. 6 characters)" id="buyer-password" style="padding-right:48px;">
-        <button onclick="togglePassword('buyer-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('buyer-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:24px;">
         <input type="checkbox" id="buyer-terms" style="width:16px;height:16px;margin-top:2px;accent-color:#1E8B4C;flex-shrink:0;">
@@ -207,8 +207,8 @@ signupBuyer() {
         <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔴 Google</button>
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔵 Facebook</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Google</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Facebook</button>
       </div>
       <p style="text-align:center;font-size:13px;color:#6b7280;">Already have an account? <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
     </div>
@@ -223,7 +223,7 @@ signupSeller() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:24px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:32px;">Join thousands of farmers growing their business digitally</p>
-        <div style="font-size:72px;margin-bottom:28px;">🌾</div>
+        <div style="font-size:72px;margin-bottom:28px;">🌱</div>
         <div style="text-align:left;display:inline-block;">
           ${['List your seeds & produce','Reach thousands of buyers','Get paid securely via wallet','Track your sales & orders'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
@@ -264,7 +264,7 @@ signupSeller() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password <span style="color:#dc2626;">*</span></label>
         <input type="password" class="form-input" placeholder="Create a password (min. 6 characters)" id="seller-password" style="padding-right:48px;">
-        <button onclick="togglePassword('seller-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('seller-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:24px;">
         <input type="checkbox" id="seller-terms" style="width:16px;height:16px;margin-top:2px;accent-color:#1E8B4C;flex-shrink:0;">
@@ -278,8 +278,8 @@ signupSeller() {
         <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔴 Google</button>
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🔵 Facebook</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Google</button>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Facebook</button>
       </div>
       <p style="text-align:center;font-size:13px;color:#6b7280;">Already have an account? <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
     </div>
@@ -294,7 +294,7 @@ signupExpert() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:24px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:32px;">Join thousands of farmers growing their business digitally</p>
-        <div style="font-size:72px;margin-bottom:28px;">👨‍🌾</div>
+        <div style="font-size:72px;margin-bottom:28px;">🌱‍🌱</div>
         <div style="text-align:left;display:inline-block;">
           ${['Share your agricultural expertise','Create and monetize courses','Offer paid consultations','Build your professional brand'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
@@ -327,7 +327,7 @@ signupExpert() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password <span style="color:#dc2626;">*</span></label>
         <input type="password" class="form-input" placeholder="Create a password" id="expert-password" style="padding-right:48px;">
-        <button onclick="togglePassword('expert-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('expert-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <div style="font-size:14px;font-weight:700;color:#374151;margin-bottom:16px;padding-top:8px;border-top:1px solid #f3f4f6;">Professional Information</div>
       <div class="form-group">
@@ -364,7 +364,7 @@ signupExpert() {
       <div class="form-group">
         <label class="form-label">Upload Credentials <span style="color:#dc2626;">*</span></label>
         <div class="file-upload" onclick="showToast('File upload coming soon','')">
-          <div class="file-upload-icon">📄</div>
+          <div class="file-upload-icon">🌱</div>
           <p>Click to upload certificates/credentials</p>
           <span>PDF, JPG up to 10MB</span>
         </div>
@@ -392,7 +392,7 @@ signupCoop() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:24px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:32px;">Empowering cooperatives across Nigeria</p>
-        <div style="font-size:72px;margin-bottom:28px;">🤝</div>
+        <div style="font-size:72px;margin-bottom:28px;">🌱</div>
         <div style="text-align:left;display:inline-block;">
           ${['Onboard all your members digitally','Apply for group loans from BOA','Track spend-locked disbursements','Generate reports for your bank'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
@@ -459,12 +459,12 @@ signupCoop() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password <span style="color:#dc2626;">*</span></label>
         <input type="password" class="form-input" placeholder="Create a password" id="coop-password" style="padding-right:48px;">
-        <button onclick="togglePassword('coop-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('coop-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <div class="form-group">
         <label class="form-label">Upload Cooperative Certificate <span style="color:#dc2626;">*</span></label>
         <div class="file-upload" onclick="showToast('File upload coming soon','')">
-          <div class="file-upload-icon">📄</div>
+          <div class="file-upload-icon">🌱</div>
           <p>Click to upload cooperative certificate</p>
           <span>PDF, JPG up to 10MB</span>
         </div>
@@ -488,7 +488,7 @@ signupInstitution() {
         <div style="width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#1E8B4C;margin:0 auto 20px;box-shadow:0 8px 24px rgba(0,0,0,0.15);">A</div>
         <h2 style="color:white;font-size:24px;font-weight:800;margin-bottom:8px;">AgroConnect</h2>
         <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:32px;">Institutional agricultural finance infrastructure</p>
-        <div style="font-size:72px;margin-bottom:28px;">🏛️</div>
+        <div style="font-size:72px;margin-bottom:28px;">🌱️</div>
         <div style="text-align:left;display:inline-block;">
           ${['Disburse loans with zero diversion','Monitor spend compliance in real-time','Access LGA-level farmer data','Generate regulatory reports'].map(f=>`
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
@@ -540,12 +540,12 @@ signupInstitution() {
       <div class="form-group" style="position:relative;">
         <label class="form-label">Password <span style="color:#dc2626;">*</span></label>
         <input type="password" class="form-input" placeholder="Create a password" id="inst-password" style="padding-right:48px;">
-        <button onclick="togglePassword('inst-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">👁</button>
+        <button onclick="togglePassword('inst-password')" style="position:absolute;right:14px;bottom:13px;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;">🌱</button>
       </div>
       <div class="form-group">
         <label class="form-label">Upload Authorization Letter <span style="color:#dc2626;">*</span></label>
         <div class="file-upload" onclick="showToast('File upload coming soon','')">
-          <div class="file-upload-icon">📄</div>
+          <div class="file-upload-icon">🌱</div>
           <p>Upload official authorization on letterhead</p>
           <span>PDF up to 10MB</span>
         </div>
@@ -565,7 +565,7 @@ otp() {
   return `
   <div style="min-height:100vh;background:#f9fafb;display:flex;align-items:center;justify-content:center;padding:24px;">
     <div style="background:white;border-radius:20px;padding:40px 32px;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.1);text-align:center;">
-      <div style="width:72px;height:72px;background:#e8f5ee;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">📱</div>
+      <div style="width:72px;height:72px;background:#e8f5ee;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">🌱</div>
       <h2 style="font-size:24px;font-weight:800;color:#111827;margin-bottom:8px;">Verify Your Number</h2>
       <p style="color:#6b7280;font-size:14px;margin-bottom:8px;">We sent a 6-digit code to</p>
       <p style="color:#111827;font-weight:700;font-size:15px;margin-bottom:28px;" id="otp-phone-display">+234 803 456 7890</p>
@@ -604,7 +604,7 @@ underReview() {
         <div style="font-size:17px;font-weight:700;color:#111827;">${appId}</div>
       </div>
       <div style="background:#eff6ff;border-radius:12px;padding:14px 20px;margin-bottom:28px;display:flex;align-items:center;gap:10px;">
-        <span style="font-size:18px;">📧</span>
+        <span style="font-size:18px;">🌱</span>
         <span style="font-size:13px;color:#1d6fa4;font-weight:500;">We've sent a confirmation email to your inbox</span>
       </div>
       <button onclick="showAuthScreen('login')" style="width:100%;max-width:280px;padding:13px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px;">Go to Login</button>
@@ -687,11 +687,11 @@ home() {
       <div class="grid-3">
         ${[
           { icon:'🌱', title:'Seed Marketplace',    desc:'Buy and sell quality seeds from verified suppliers across Nigeria', screen:'seed-market' },
-          { icon:'📖', title:'Skill Development',   desc:'Access courses and training from agricultural experts', screen:'learning' },
-          { icon:'💳', title:'Easy Financing',      desc:'Get agricultural and export loans with reduced interest rates', screen:'financing' },
-          { icon:'🚚', title:'Logistics Support',   desc:'Connect with warehousing and transport partners', screen:'logistics' },
-          { icon:'👥', title:'Expert Network',      desc:'Connect with industry leaders and researchers', screen:'experts' },
-          { icon:'🛒', title:'Product Marketplace', desc:'Sell your farm produce directly to buyers nationwide', screen:'seed-market' },
+          { icon:'🌱', title:'Skill Development',   desc:'Access courses and training from agricultural experts', screen:'learning' },
+          { icon:'🌱', title:'Easy Financing',      desc:'Get agricultural and export loans with reduced interest rates', screen:'financing' },
+          { icon:'🌱', title:'Logistics Support',   desc:'Connect with warehousing and transport partners', screen:'logistics' },
+          { icon:'🌱', title:'Expert Network',      desc:'Connect with industry leaders and researchers', screen:'experts' },
+          { icon:'🌱', title:'Product Marketplace', desc:'Sell your farm produce directly to buyers nationwide', screen:'seed-market' },
         ].map(f => `
           <div onclick="AC_STATE.navigate('${f.screen}')" class="feature-card" style="cursor:pointer;">
             <div style="font-size:32px;margin-bottom:12px;">${f.icon}</div>
@@ -706,10 +706,10 @@ home() {
       <div style="position:absolute;width:180px;height:180px;background:rgba(255,255,255,0.06);border-radius:50%;top:-50px;right:-30px;pointer-events:none;"></div>
       <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
         <div>
-          <div style="font-size:var(--text-sm);color:rgba(255,255,255,0.75);margin-bottom:6px;">💰 Available Balance</div>
+          <div style="font-size:var(--text-sm);color:rgba(255,255,255,0.75);margin-bottom:6px;">🌱 Available Balance</div>
           <div style="font-size:32px;font-weight:700;color:white;letter-spacing:-1px;margin-bottom:8px;">${formatNaira(wallet.personalBalance)}</div>
           <div style="background:rgba(255,255,255,0.15);display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);padding:4px 12px;font-size:12px;color:white;font-weight:600;">
-            🔒 Agric Credit: ${formatNaira(wallet.agricCredit)}
+            🌱 Agric Credit: ${formatNaira(wallet.agricCredit)}
           </div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -727,7 +727,7 @@ home() {
         <div style="padding:0 20px;">
           ${recentOrders.length === 0 ? `
             <div style="padding:32px 0;text-align:center;">
-              <div style="font-size:40px;margin-bottom:12px;">📦</div>
+              <div style="font-size:40px;margin-bottom:12px;">🌱</div>
               <div style="font-size:var(--text-md);font-weight:600;color:var(--gray-800);margin-bottom:4px;">No orders yet</div>
               <div style="font-size:var(--text-sm);color:var(--gray-500);">Start shopping on the Seed Market</div>
             </div>
@@ -783,7 +783,7 @@ home() {
             <div class="tx-icon ${tx.type}">${tx.type==='credit'?'↓':'↑'}</div>
             <div class="tx-info">
               <div class="tx-title">${tx.title}</div>
-              <div class="tx-sub">${tx.sub} · ${tx.date}</div>
+              <div class="tx-sub">${tx.sub} - ${tx.date}</div>
             </div>
             <div class="tx-amount ${tx.type}">${tx.type==='credit'?'+':'-'}${formatNaira(tx.amount)}</div>
           </div>
@@ -795,9 +795,9 @@ home() {
       <div class="grid-4" style="gap:12px;">
         ${[
           { icon:'🌱', label:'Buy Seeds',   screen:'seed-market',  color:'#e8f5ee', border:'#d4eddc' },
-          { icon:'💰', label:'Fund Wallet', screen:'wallet',        color:'#ede9fe', border:'#ddd6fe' },
-          { icon:'📦', label:'My Orders',   screen:'order-history', color:'#dbeafe', border:'#bfdbfe' },
-          { icon:'👥', label:'Find Expert', screen:'experts',       color:'#fef3c7', border:'#fde68a' },
+          { icon:'🌱', label:'Fund Wallet', screen:'wallet',        color:'#ede9fe', border:'#ddd6fe' },
+          { icon:'🌱', label:'My Orders',   screen:'order-history', color:'#dbeafe', border:'#bfdbfe' },
+          { icon:'🌱', label:'Find Expert', screen:'experts',       color:'#fef3c7', border:'#fde68a' },
         ].map(a => `
           <div onclick="AC_STATE.navigate('${a.screen}')" style="background:${a.color};border:1px solid ${a.border};border-radius:var(--radius-md);padding:18px 14px;text-align:center;cursor:pointer;transition:var(--transition);"
             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow)'"
@@ -835,7 +835,7 @@ seedMarket() {
         ${regions.map(r => `<option value="${r}" ${AC_STATE.activeRegion===r?'selected':''}>${r}</option>`).join('')}
       </select>
       <div style="flex:1;min-width:200px;position:relative;">
-        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:14px;pointer-events:none;">🔍</span>
+        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:14px;pointer-events:none;">🌱</span>
         <input type="text" placeholder="Search seeds..." value="${AC_STATE.searchQuery || ''}"
           oninput="AC_STATE.searchQuery=this.value;AC_STATE.navigate('seed-market')"
           style="width:100%;height:40px;padding:0 14px 0 36px;border:1.5px solid var(--gray-200);border-radius:var(--radius-full);font-size:var(--text-sm);font-family:var(--font);color:var(--gray-900);background:white;outline:none;transition:var(--transition);"
@@ -850,7 +850,7 @@ seedMarket() {
       <p style="font-size:var(--text-sm);color:var(--gray-500);">
         Showing <strong style="color:var(--gray-900);">${seeds.length}</strong> product${seeds.length !== 1 ? 's' : ''}
         ${AC_STATE.activeCategory !== 'All Crops' ? ` in <strong style="color:var(--green);">${AC_STATE.activeCategory}</strong>` : ''}
-        ${AC_STATE.activeRegion !== 'All Regions' ? ` · <strong style="color:var(--green);">${AC_STATE.activeRegion}</strong>` : ''}
+        ${AC_STATE.activeRegion !== 'All Regions' ? ` - <strong style="color:var(--green);">${AC_STATE.activeRegion}</strong>` : ''}
       </p>
       <div style="display:flex;align-items:center;gap:6px;">
         <span style="font-size:var(--text-xs);color:var(--gray-400);">Sort by:</span>
@@ -881,12 +881,12 @@ seedMarket() {
               ${s.emoji}
               ${!s.inStock ? `<div style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.6);color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:var(--radius-full);">Out of Stock</div>` : ''}
               ${s.nascVerified ? `<div style="position:absolute;top:12px;right:12px;background:var(--blue);color:white;font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--radius-full);">✓ NASC</div>` : ''}
-              <button onclick="event.stopPropagation();AC_STATE.toggleWishlist('${s.id}');AC_STATE.navigate('seed-market')" style="position:absolute;bottom:12px;right:12px;width:32px;height:32px;border-radius:50%;background:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">${isWishlisted ? '❤️' : '🤍'}</button>
+              <button onclick="event.stopPropagation();AC_STATE.toggleWishlist('${s.id}');AC_STATE.navigate('seed-market')" style="position:absolute;bottom:12px;right:12px;width:32px;height:32px;border-radius:50%;background:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">${isWishlisted ? '❤️' : '🌱'}</button>
             </div>
             <div style="padding:16px;">
               <div onclick="AC_STATE.selectedProduct=AC_DATA.seeds.find(x=>x.id==='${s.id}');AC_STATE.navigate('seed-detail')" style="cursor:pointer;">
                 <h3 style="font-size:var(--text-md);font-weight:700;color:var(--gray-900);margin-bottom:4px;line-height:1.3;">${s.name}</h3>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span style="font-size:var(--text-xs);color:var(--gray-500);">📍 ${s.region}</span></div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span style="font-size:var(--text-xs);color:var(--gray-500);">🌱 ${s.region}</span></div>
                 <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;">
                   <span style="color:#f59e0b;font-size:13px;">★</span>
                   <span style="font-size:var(--text-sm);font-weight:600;color:var(--gray-800);">${s.rating}</span>
@@ -984,7 +984,7 @@ seedDetail() {
           <button onclick="const qty=parseInt(document.getElementById('qty-${s.id}').value)||1;AC_STATE.addToCart('${s.id}',qty);AC_STATE.navigate('cart');" style="padding:13px;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:var(--radius-full);font-size:var(--text-sm);font-weight:700;font-family:var(--font);cursor:pointer;transition:var(--transition);"
             onmouseover="this.style.background='var(--green-pale)'" onmouseout="this.style.background='transparent'">Buy Now</button>
           <button onclick="AC_STATE.toggleWishlist('${s.id}');AC_STATE.navigate('seed-detail')" style="width:46px;height:46px;border-radius:50%;background:white;border:1.5px solid var(--gray-200);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);"
-            onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--gray-200)'">${isWishlisted ? '❤️' : '🤍'}</button>
+            onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--gray-200)'">${isWishlisted ? '❤️' : '🌱'}</button>
         </div>
         <div style="background:white;border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:16px 20px;">
           <div style="font-size:var(--text-sm);font-weight:700;color:var(--gray-900);margin-bottom:12px;">Quick Specs</div>
@@ -1086,11 +1086,11 @@ seedDetail() {
       </div>
       <div id="detail-panel-3" style="padding:24px;display:none;">
         ${[
-          { icon:'🚚', title:'Standard Delivery', desc:'3-5 business days · ₦3,500 flat rate nationwide' },
-          { icon:'⚡', title:'Express Delivery', desc:'1-2 business days · ₦7,000 (Lagos, Abuja, Kano, Port Harcourt)' },
-          { icon:'🏪', title:'Agro Hub Pickup', desc:'Free pickup from any AgroConnect Agro Hub near you' },
-          { icon:'📦', title:'Packaging', desc:'Seeds are packaged in moisture-proof, tamper-evident bags' },
-          { icon:'🔄', title:'Returns Policy', desc:'Report issues within 7 days of delivery for replacement or refund' },
+          { icon:'🌱', title:'Standard Delivery', desc:'3-5 business days - ₦3,500 flat rate nationwide' },
+          { icon:'⚡', title:'Express Delivery', desc:'1-2 business days - ₦7,000 (Lagos, Abuja, Kano, Port Harcourt)' },
+          { icon:'🌱', title:'Agro Hub Pickup', desc:'Free pickup from any AgroConnect Agro Hub near you' },
+          { icon:'🌱', title:'Packaging', desc:'Seeds are packaged in moisture-proof, tamper-evident bags' },
+          { icon:'🌱', title:'Returns Policy', desc:'Report issues within 7 days of delivery for replacement or refund' },
         ].map(item => `
           <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-100);">
             <div style="width:40px;height:40px;background:var(--green-pale);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${item.icon}</div>
@@ -1135,40 +1135,40 @@ seedDetail() {
   </script>`;
 },
 
-cart()            { return `<div class="result-screen"><div style="font-size:64px;">🛒</div><h2 style="margin-top:16px;">Cart</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-checkout()        { return `<div class="result-screen"><div style="font-size:64px;">💳</div><h2 style="margin-top:16px;">Checkout</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-payment()         { return `<div class="result-screen"><div style="font-size:64px;">💰</div><h2 style="margin-top:16px;">Payment</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+cart()            { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Cart</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+checkout()        { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Checkout</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+payment()         { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Payment</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 orderConfirm()    { return `<div class="result-screen"><div style="font-size:64px;">✅</div><h2 style="margin-top:16px;">Order Confirmed</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-orderHistory()    { return `<div class="result-screen"><div style="font-size:64px;">📦</div><h2 style="margin-top:16px;">Order History</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-orderDetail()     { return `<div class="result-screen"><div style="font-size:64px;">📋</div><h2 style="margin-top:16px;">Order Detail</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+orderHistory()    { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Order History</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+orderDetail()     { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Order Detail</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 wishlist()        { return `<div class="result-screen"><div style="font-size:64px;">❤️</div><h2 style="margin-top:16px;">Wishlist</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-sellerDashboard() { return `<div class="result-screen"><div style="font-size:64px;">📊</div><h2 style="margin-top:16px;">Seller Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-myListings()      { return `<div class="result-screen"><div style="font-size:64px;">📦</div><h2 style="margin-top:16px;">My Listings</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+sellerDashboard() { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Seller Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+myListings()      { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">My Listings</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 uploadProduct()   { return `<div class="result-screen"><div style="font-size:64px;">➕</div><h2 style="margin-top:16px;">Upload Product</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-ordersReceived()  { return `<div class="result-screen"><div style="font-size:64px;">🛒</div><h2 style="margin-top:16px;">Orders Received</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-sellerAnalytics() { return `<div class="result-screen"><div style="font-size:64px;">📈</div><h2 style="margin-top:16px;">Seller Analytics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-expertDashboard() { return `<div class="result-screen"><div style="font-size:64px;">🎓</div><h2 style="margin-top:16px;">Expert Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-myCourses()       { return `<div class="result-screen"><div style="font-size:64px;">📚</div><h2 style="margin-top:16px;">My Courses</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-courseAnalytics() { return `<div class="result-screen"><div style="font-size:64px;">📈</div><h2 style="margin-top:16px;">Course Analytics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+ordersReceived()  { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Orders Received</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+sellerAnalytics() { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Seller Analytics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+expertDashboard() { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Expert Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+myCourses()       { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">My Courses</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+courseAnalytics() { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Course Analytics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 createCourse()    { return `<div class="result-screen"><div style="font-size:64px;">➕</div><h2 style="margin-top:16px;">Create Course</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-coopDashboard()   { return `<div class="result-screen"><div style="font-size:64px;">🤝</div><h2 style="margin-top:16px;">Cooperative Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-coopMembers()     { return `<div class="result-screen"><div style="font-size:64px;">👨‍👩‍👧‍👦</div><h2 style="margin-top:16px;">Members</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-coopLoan()        { return `<div class="result-screen"><div style="font-size:64px;">🏦</div><h2 style="margin-top:16px;">Loan Request</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-coopWallet()      { return `<div class="result-screen"><div style="font-size:64px;">💰</div><h2 style="margin-top:16px;">Group Wallet</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-instDashboard()   { return `<div class="result-screen"><div style="font-size:64px;">🏛️</div><h2 style="margin-top:16px;">Institution Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-instCompliance()  { return `<div class="result-screen"><div style="font-size:64px;">🔒</div><h2 style="margin-top:16px;">Spend Compliance</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-instLoanQueue()   { return `<div class="result-screen"><div style="font-size:64px;">📋</div><h2 style="margin-top:16px;">Loan Queue</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-instGeoMap()      { return `<div class="result-screen"><div style="font-size:64px;">🗺️</div><h2 style="margin-top:16px;">Geo Map</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-wallet()          { return `<div class="result-screen"><div style="font-size:64px;">💰</div><h2 style="margin-top:16px;">Wallet</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-financing()       { return `<div class="result-screen"><div style="font-size:64px;">💳</div><h2 style="margin-top:16px;">Financing</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-logistics()       { return `<div class="result-screen"><div style="font-size:64px;">🚚</div><h2 style="margin-top:16px;">Logistics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-learning()        { return `<div class="result-screen"><div style="font-size:64px;">📖</div><h2 style="margin-top:16px;">Learning</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-experts()         { return `<div class="result-screen"><div style="font-size:64px;">👥</div><h2 style="margin-top:16px;">Experts</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-expertProfile()   { return `<div class="result-screen"><div style="font-size:64px;">👨‍🌾</div><h2 style="margin-top:16px;">Expert Profile</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-notifications()   { return `<div class="result-screen"><div style="font-size:64px;">🔔</div><h2 style="margin-top:16px;">Notifications</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-profile()         { return `<div class="result-screen"><div style="font-size:64px;">👤</div><h2 style="margin-top:16px;">Profile</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+coopDashboard()   { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Cooperative Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+coopMembers()     { return `<div class="result-screen"><div style="font-size:64px;">🌱‍🌱‍🌱‍🌱</div><h2 style="margin-top:16px;">Members</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+coopLoan()        { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Loan Request</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+coopWallet()      { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Group Wallet</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+instDashboard()   { return `<div class="result-screen"><div style="font-size:64px;">🌱️</div><h2 style="margin-top:16px;">Institution Dashboard</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+instCompliance()  { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Spend Compliance</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+instLoanQueue()   { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Loan Queue</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+instGeoMap()      { return `<div class="result-screen"><div style="font-size:64px;">🌱️</div><h2 style="margin-top:16px;">Geo Map</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+wallet()          { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Wallet</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+financing()       { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Financing</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+logistics()       { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Logistics</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+learning()        { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Learning</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+experts()         { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Experts</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+expertProfile()   { return `<div class="result-screen"><div style="font-size:64px;">🌱‍🌱</div><h2 style="margin-top:16px;">Expert Profile</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+notifications()   { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Notifications</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+profile()         { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">Profile</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 settings()        { return `<div class="result-screen"><div style="font-size:64px;">⚙️</div><h2 style="margin-top:16px;">Settings</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
-whatsapp()        { return `<div class="result-screen"><div style="font-size:64px;">💬</div><h2 style="margin-top:16px;">WhatsApp Bot</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
+whatsapp()        { return `<div class="result-screen"><div style="font-size:64px;">🌱</div><h2 style="margin-top:16px;">WhatsApp Bot</h2><p style="margin-top:8px;color:#6b7280;">Coming next!</p></div>`; },
 
 /* ═══════════════════════════════════════════════════════════
    HELPERS
@@ -1234,7 +1234,7 @@ function handleLogin() {
     AC_STATE.user.email    = email;
     const role = AC_STATE._pendingRole || 'buyer';
     showApp(role);
-    showToast('Welcome back, ' + finalName.split(' ')[0] + '! 👋', 'success');
+    showToast('Welcome back, ' + finalName.split(' ')[0] + '! 🌱', 'success');
   }, 1200);
 }
 
@@ -1323,5 +1323,5 @@ function togglePassword(id) {
   if (!input) return;
   const btn = input.nextElementSibling;
   input.type = input.type === 'password' ? 'text' : 'password';
-  if (btn) btn.textContent = input.type === 'password' ? '👁' : '🙈';
+  if (btn) btn.textContent = input.type === 'password' ? '🌱' : '🌱';
 }

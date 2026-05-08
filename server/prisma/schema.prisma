@@ -1,0 +1,451 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── ENUMS ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  farmer
+  supplier
+  expert
+  cooperative
+  institution
+  admin
+}
+
+enum AccountStatus {
+  pending
+  verified
+  rejected
+  suspended
+}
+
+enum OrderStatus {
+  pending
+  processing
+  shipped
+  in_transit
+  delivered
+  cancelled
+}
+
+enum LoanStatus {
+  pending
+  reviewing
+  approved
+  disbursed
+  repaying
+  completed
+  rejected
+}
+
+enum TransactionType {
+  credit
+  debit
+}
+
+// ─── USER ────────────────────────────────────────────────────────────────────
+
+model User {
+  id              String        @id @default(cuid())
+  name            String
+  email           String        @unique
+  phone           String        @unique
+  passwordHash    String
+  role            Role
+  accountStatus   AccountStatus @default(pending)
+  isPhoneVerified Boolean       @default(false)
+  isEmailVerified Boolean       @default(false)
+  avatarUrl       String?
+  lga             String?
+  state           String?
+  coopName             String?
+  coopId               String?
+  institution          String?
+  resetToken           String?   @unique
+  resetTokenExpiresAt  DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  refreshTokens    RefreshToken[]
+  otpCodes         OtpCode[]
+  orders           Order[]
+  wallet           Wallet?
+  products         Product[]        @relation("SupplierProducts")
+  wishlistItems    WishlistItem[]
+  courses          Course[]         @relation("ExpertCourses")
+  notifications    Notification[]
+  loanApplications LoanApplication[]
+  produceListings  ProduceListing[] @relation("FarmerProduce")
+  reviews               Review[]
+  enrollments           CourseEnrollment[]
+  consultationSlots     ConsultationSlot[]   @relation("ExpertSlots")
+  consultationsAsFarmer Consultation[]       @relation("FarmerConsultations")
+  consultationsAsExpert Consultation[]       @relation("ExpertConsultations")
+  sentMessages          Message[]            @relation("MessageSender")
+
+  @@index([email])
+  @@index([phone])
+  @@index([role])
+}
+
+// ─── AUTH ─────────────────────────────────────────────────────────────────────
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model OtpCode {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code      String
+  purpose   String    // "phone_verify" | "login" | "password_reset"
+  expiresAt DateTime
+  usedAt    DateTime?
+  attempts  Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+// ─── PRODUCT ──────────────────────────────────────────────────────────────────
+
+model Product {
+  id                 String   @id @default(cuid())
+  name               String
+  fullName           String?
+  emoji              String   @default("🌱")  // transition field; replace with images
+  description        String?
+  features           String[] @default([])
+  inputType          String   // seeds | fertilizers | crop-protect | equipment | post-harvest
+  subCategory        String
+  region             String   @default("All Regions")
+  price              Float
+  unit               String
+  stock              Int      @default(0)
+  minOrder           Int      @default(1)
+  images             String[] @default([])
+  isActive           Boolean  @default(false)
+  supplierId         String
+  supplier           User     @relation("SupplierProducts", fields: [supplierId], references: [id])
+  supplierName       String   // denormalised for fast list queries
+  verification       String?  // nasc | nafdac | supplier
+  verificationNumber String?
+  germination        String?  // e.g. "95%"
+  purity             String?  // e.g. "99%"
+  rating             Float    @default(0)
+  reviewCount        Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  orderItems    OrderItem[]
+  wishlistItems WishlistItem[]
+  reviews       Review[]
+
+  @@index([supplierId])
+  @@index([inputType])
+  @@index([isActive])
+  @@index([region])
+}
+
+// ─── WISHLIST ─────────────────────────────────────────────────────────────────
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+}
+
+// ─── ORDER ────────────────────────────────────────────────────────────────────
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique @default(cuid())
+  farmerId        String
+  farmer          User        @relation(fields: [farmerId], references: [id])
+  status          OrderStatus @default(pending)
+  totalAmount     Float
+  deliveryFee     Float       @default(2500)
+  deliveryName    String
+  deliveryPhone   String
+  deliveryAddress String
+  deliveryState   String
+  deliveryCity    String
+  deliveryMethod  String      @default("standard")
+  paymentMethod   String
+  trackingCode    String?
+  carrier         String?
+  paystackRef     String?     @unique
+  paidAt          DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  items    OrderItem[]
+  messages Message[]
+
+  @@index([farmerId])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  productName String
+  emoji       String  @default("🌱")
+  price       Float
+  qty         Int
+  unit        String
+
+  @@index([orderId])
+}
+
+// ─── WALLET ───────────────────────────────────────────────────────────────────
+
+model Wallet {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  balance     Float    @default(0)
+  agricCredit Float    @default(0)
+  updatedAt   DateTime @updatedAt
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  walletId    String
+  wallet      Wallet          @relation(fields: [walletId], references: [id])
+  type        TransactionType
+  amount      Float
+  label       String
+  subtitle    String?
+  reference   String?         @unique
+  createdAt   DateTime        @default(now())
+
+  @@index([walletId])
+  @@index([createdAt])
+}
+
+// ─── COURSE ───────────────────────────────────────────────────────────────────
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  expertId    String
+  expert      User     @relation("ExpertCourses", fields: [expertId], references: [id])
+  price       Float    @default(0)
+  duration    String?
+  imageUrl    String?
+  isPublished Boolean  @default(false)
+  enrollCount Int      @default(0)
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  modules     CourseModule[]
+  enrollments CourseEnrollment[]
+
+  @@index([expertId])
+  @@index([isPublished])
+}
+
+model CourseModule {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title     String
+  videoUrl  String?
+  duration  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([courseId])
+}
+
+model CourseEnrollment {
+  id          String    @id @default(cuid())
+  courseId    String
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  progress    Int       @default(0)  // 0–100
+  completedAt DateTime?
+  paystackRef String?
+  enrolledAt  DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+// ─── LOAN ─────────────────────────────────────────────────────────────────────
+
+model LoanApplication {
+  id              String     @id @default(cuid())
+  applicantId     String
+  applicant       User       @relation(fields: [applicantId], references: [id])
+  amount          Float
+  purpose         String
+  repaymentMonths Int
+  status          LoanStatus @default(pending)
+  reviewNotes     String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@index([applicantId])
+  @@index([status])
+}
+
+// ─── PRODUCE LISTING ─────────────────────────────────────────────────────────
+
+model ProduceListing {
+  id           String   @id @default(cuid())
+  farmerId     String
+  farmer       User     @relation("FarmerProduce", fields: [farmerId], references: [id])
+  produceType  String
+  quantity     Float
+  unit         String
+  pricePerUnit Float
+  harvestDate  DateTime?
+  location     String
+  notes        String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([farmerId])
+  @@index([isActive])
+}
+
+// ─── COOP MEMBER ─────────────────────────────────────────────────────────────
+
+model CoopMember {
+  id        String   @id @default(cuid())
+  coopId    String
+  name      String
+  phone     String
+  lga       String?
+  state     String?
+  farmType  String?
+  isActive  Boolean  @default(true)
+  duesPaid  Boolean  @default(false)
+  joinedAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([coopId])
+}
+
+// ─── CONSULTATION ────────────────────────────────────────────────────────────
+
+enum ConsultationStatus {
+  pending
+  confirmed
+  completed
+  cancelled
+}
+
+model ConsultationSlot {
+  id        String   @id @default(cuid())
+  expertId  String
+  expert    User     @relation("ExpertSlots", fields: [expertId], references: [id], onDelete: Cascade)
+  startAt   DateTime
+  endAt     DateTime
+  price     Float    @default(0)
+  isBooked  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  consultation Consultation?
+
+  @@index([expertId, startAt])
+}
+
+model Consultation {
+  id         String              @id @default(cuid())
+  slotId     String              @unique
+  slot       ConsultationSlot    @relation(fields: [slotId], references: [id])
+  farmerId   String
+  farmer     User                @relation("FarmerConsultations", fields: [farmerId], references: [id])
+  expertId   String
+  expert     User                @relation("ExpertConsultations", fields: [expertId], references: [id])
+  status     ConsultationStatus  @default(pending)
+  meetingUrl String
+  paystackRef String?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([farmerId])
+  @@index([expertId])
+}
+
+// ─── MESSAGE ─────────────────────────────────────────────────────────────────
+
+model Message {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User     @relation("MessageSender", fields: [senderId], references: [id])
+  body      String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([orderId, createdAt])
+  @@index([senderId])
+}
+
+// ─── REVIEW ──────────────────────────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int      // 1–5
+  comment   String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([productId])
+}
+
+// ─── NOTIFICATION ─────────────────────────────────────────────────────────────
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+}
