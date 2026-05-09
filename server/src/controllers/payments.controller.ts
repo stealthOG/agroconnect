@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+import { Prisma } from '../generated/prisma/client';
 import { prisma } from '../lib/prisma';
 import type { AuthRequest } from '../middleware/auth';
 import {
@@ -102,8 +103,8 @@ export async function initializePayment(req: AuthRequest, res: Response): Promis
     }
 
     /* Create order + deduct wallet in one transaction */
-    const order = await prisma.$transaction(async (tx) => {
-      const created = await (tx as typeof prisma).order.create({
+    const order = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      const created = await tx.order.create({
         data: {
           farmerId: req.user!.userId, status: 'processing', totalAmount,
           deliveryFee: DELIVERY_FEE, deliveryName, deliveryPhone, deliveryAddress,
@@ -126,7 +127,7 @@ export async function initializePayment(req: AuthRequest, res: Response): Promis
       } as Parameters<typeof prisma.order.create>[0]);
 
       for (const item of items) {
-        await (tx as typeof prisma).product.update({
+        await tx.product.update({
           where: { id: item.productId },
           data:  { stock: { decrement: item.qty } },
         } as Parameters<typeof prisma.product.update>[0]);
@@ -145,13 +146,13 @@ export async function initializePayment(req: AuthRequest, res: Response): Promis
       }
       newBalance -= remainingDebt;
 
-      await (tx as typeof prisma).wallet.update({
+      await tx.wallet.update({
         where: { userId: req.user!.userId },
         data:  { balance: newBalance, agricCredit: newAgricCredit },
       } as Parameters<typeof prisma.wallet.update>[0]);
 
       const walletId = w?.['id'] as string;
-      await (tx as typeof prisma).transaction.create({
+      await tx.transaction.create({
         data: {
           walletId,
           type:      'debit',
@@ -181,8 +182,8 @@ export async function initializePayment(req: AuthRequest, res: Response): Promis
   const u         = user as Record<string, unknown>;
 
   /* Create pending order first so we can reference it in the metadata */
-  const order = await prisma.$transaction(async (tx) => {
-    const created = await (tx as typeof prisma).order.create({
+  const order = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const created = await tx.order.create({
       data: {
         farmerId: req.user!.userId, status: 'pending', totalAmount,
         deliveryFee: DELIVERY_FEE, deliveryName, deliveryPhone, deliveryAddress,
@@ -206,7 +207,7 @@ export async function initializePayment(req: AuthRequest, res: Response): Promis
 
     /* Decrement stock optimistically (will restore if payment fails) */
     for (const item of items) {
-      await (tx as typeof prisma).product.update({
+      await tx.product.update({
         where: { id: item.productId },
         data:  { stock: { decrement: item.qty } },
       } as Parameters<typeof prisma.product.update>[0]);

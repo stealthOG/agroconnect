@@ -1,4 +1,5 @@
 import type { Response } from 'express';
+import { Prisma } from '../generated/prisma/client';
 import { prisma } from '../lib/prisma';
 import type { AuthRequest } from '../middleware/auth';
 import { createOrderSchema, updateOrderStatusSchema, orderQuerySchema } from '../validators/orders';
@@ -147,8 +148,8 @@ export async function createOrder(req: AuthRequest, res: Response): Promise<void
   const totalAmount = itemsTotal + DELIVERY_FEE;
 
   // Create order + decrement stock in a transaction
-  const order = await prisma.$transaction(async (tx) => {
-    const created = await (tx as typeof prisma).order.create({
+  const order = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const created = await tx.order.create({
       data: {
         farmerId:  req.user!.userId,
         status:    'pending',
@@ -174,7 +175,7 @@ export async function createOrder(req: AuthRequest, res: Response): Promise<void
 
     // Decrement stock for each product
     for (const item of items) {
-      await (tx as typeof prisma).product.update({
+      await tx.product.update({
         where: { id: item.productId },
         data:  { stock: { decrement: item.qty } },
       } as Parameters<typeof prisma.product.update>[0]);
