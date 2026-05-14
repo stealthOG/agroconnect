@@ -168,15 +168,6 @@ login() {
         <span onclick="showAuthScreen('forgotPassword')" style="color:#1E8B4C;font-size:13px;font-weight:600;cursor:pointer;">Forgot password?</span>
       </div>
       <button id="login-btn" onclick="handleLogin()" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px;">Log in</button>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
-        <span style="color:#9ca3af;font-size:13px;">OR</span>
-        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Google</button>
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Facebook</button>
-      </div>
       <p style="text-align:center;font-size:14px;color:#6b7280;">Don't have an account? <span onclick="showAuthScreen('roleSelection')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Sign up</span></p>
     </div>
   </div>`;
@@ -248,15 +239,6 @@ signupFarmer() {
         <span style="font-size:13px;color:#6b7280;line-height:1.5;">I agree to the <span style="color:#1E8B4C;font-weight:600;">Terms & Conditions</span></span>
       </label>
       <button onclick="handleSignup('farmer')" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px;">Create Account</button>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
-        <span style="color:#9ca3af;font-size:13px;">OR</span>
-        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Google</button>
-        <button style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">🌱 Facebook</button>
-      </div>
       <p style="text-align:center;font-size:13px;color:#6b7280;">Already have an account? <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
     </div>
   </div>`;
