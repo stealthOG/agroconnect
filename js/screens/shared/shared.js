@@ -1721,90 +1721,268 @@ showOnboarding(role) {
   if (existing) existing.remove();
 
   const flows = {
-    farmer: {
-      title: 'Welcome to AgroConnect!',
-      steps: [
-        { icon:'🛒', title:'Browse Inputs',   desc:'Find seeds, fertilizers and equipment from verified suppliers across Nigeria' },
-        { icon:'💳', title:'Add to Cart',     desc:'Compare prices, check stock, and order in just a few taps'                  },
-        { icon:'📦', title:'Get Delivered',   desc:'Track your shipment in real time and receive at your door'                  },
-      ],
-    },
-    supplier: {
-      title: 'Welcome, Supplier!',
-      steps: [
-        { icon:'📋', title:'List Your Products', desc:'Upload your agricultural inputs — seeds, fertilizers, equipment and more' },
-        { icon:'🔔', title:'Get Notified',       desc:'Receive instant alerts the moment a farmer places an order'              },
-        { icon:'📊', title:'Track Revenue',      desc:'View analytics, manage orders, and grow your agribusiness'               },
-      ],
-    },
-    expert: {
-      title: 'Welcome, Expert!',
-      steps: [
-        { icon:'📚', title:'Create a Course',   desc:'Share your agricultural knowledge with thousands of Nigerian farmers'     },
-        { icon:'📅', title:'Offer Consultations',desc:'Set your availability and let farmers book one-on-one sessions'          },
-        { icon:'💰', title:'Earn Money',        desc:'Get paid for courses and consultations directly to your wallet'           },
-      ],
-    },
-    cooperative: {
-      title: 'Welcome, Cooperative!',
-      steps: [
-        { icon:'👥', title:'Manage Members',  desc:'Track your cooperative members, dues, and farm details in one place'        },
-        { icon:'🏦', title:'Apply for Loans', desc:'Access group agricultural financing from partner institutions'               },
-        { icon:'🛒', title:'Group Buying',    desc:'Pool resources and buy inputs in bulk at better prices'                     },
-      ],
-    },
+    farmer: [
+      {
+        icon: '🌱', bg: '#e8f5ee', color: '#1E8B4C',
+        title: 'Welcome to AgroConnect!',
+        desc: 'Your complete digital farming platform. Buy inputs, sell produce, learn from experts and manage your farm — all in one place.',
+        points: ['Built for Nigerian farmers', 'Verified suppliers only', 'Pay with wallet, card or transfer'],
+        screen: null,
+        cta: null,
+      },
+      {
+        icon: '🛒', bg: '#fef3c7', color: '#d97706',
+        title: 'Browse the Input Market',
+        desc: 'Shop for seeds, fertilizers, crop protection chemicals and farm equipment from verified suppliers across Nigeria.',
+        points: ['Filter by category, region and price', 'Read reviews from other farmers', 'Add multiple items to your cart'],
+        screen: 'input-market',
+        cta: 'Open the Market',
+      },
+      {
+        icon: '💳', bg: '#ede9fe', color: '#7c3aed',
+        title: 'Checkout & Pay',
+        desc: 'Review your cart, enter your delivery details and pay securely. Multiple payment options available.',
+        points: ['Pay with your AgroConnect wallet', 'Card or bank transfer via Paystack', 'Enter exact delivery address'],
+        screen: 'cart',
+        cta: 'View My Cart',
+      },
+      {
+        icon: '📦', bg: '#dbeafe', color: '#2563eb',
+        title: 'Track Your Orders',
+        desc: 'After payment, track every order in real time — from processing through to delivery at your door.',
+        points: ['Live order status updates', 'Message the supplier directly', 'Confirm delivery and rate the product'],
+        screen: 'order-history',
+        cta: 'See My Orders',
+      },
+      {
+        icon: '🎓', bg: '#fce7f3', color: '#db2777',
+        title: 'Learn from Experts',
+        desc: 'Take online courses and book one-on-one video consultations with certified agricultural professionals.',
+        points: ['Free and paid courses available', 'Book consultation slots that suit you', 'Video calls powered by Jitsi'],
+        screen: 'learning',
+        cta: 'Explore Courses',
+      },
+      {
+        icon: '🌾', bg: '#d1fae5', color: '#059669',
+        title: 'Sell Your Produce',
+        desc: 'List your harvest on the AgroConnect marketplace and connect with buyers and institutions looking to purchase.',
+        points: ['Set your price and quantity', 'Specify crop type and location', 'Get paid directly to your wallet'],
+        screen: 'list-produce',
+        cta: 'List My Produce',
+      },
+    ],
+    supplier: [
+      {
+        icon: '🏪', bg: '#e8f5ee', color: '#1E8B4C',
+        title: 'Welcome, Agro-Supplier!',
+        desc: 'Reach thousands of verified farmers across Nigeria. List your products, receive orders and grow your agribusiness — all from one dashboard.',
+        points: ['Verified supplier badge builds trust', 'Orders come directly to you', 'Analytics to track your growth'],
+        screen: null,
+        cta: null,
+      },
+      {
+        icon: '📸', bg: '#fef3c7', color: '#d97706',
+        title: 'List Your Products',
+        desc: 'Upload your agricultural inputs with photos, descriptions, pricing and stock levels. Go live in minutes.',
+        points: ['Upload up to 5 product photos', 'Set price per unit and minimum order', 'Mark items as in stock or out of stock'],
+        screen: 'upload-product',
+        cta: 'Add Your First Product',
+      },
+      {
+        icon: '🔔', bg: '#ede9fe', color: '#7c3aed',
+        title: 'Receive & Manage Orders',
+        desc: 'Get notified the moment a farmer places an order. Review the details, confirm and ship — with tracking built in.',
+        points: ['See all incoming orders in one view', 'Enter courier and tracking number', 'Message the farmer if needed'],
+        screen: 'orders-received',
+        cta: 'View Incoming Orders',
+      },
+      {
+        icon: '📊', bg: '#dbeafe', color: '#2563eb',
+        title: 'Track Your Revenue',
+        desc: 'Your analytics dashboard shows real-time revenue, top-selling products, order trends and performance metrics.',
+        points: ['Monthly revenue chart', 'Category breakdown', 'Average order value and cancel rate'],
+        screen: 'supplier-analytics',
+        cta: 'Open Analytics',
+      },
+      {
+        icon: '💼', bg: '#d1fae5', color: '#059669',
+        title: 'Manage Your Listings',
+        desc: 'View all your active listings, edit prices, update stock levels and respond to farmer reviews from one place.',
+        points: ['Edit or pause any listing instantly', 'See star ratings and written reviews', 'Top-performing products highlighted'],
+        screen: 'my-listings',
+        cta: 'See My Listings',
+      },
+    ],
+    expert: [
+      {
+        icon: '👨‍🏫', bg: '#e8f5ee', color: '#1E8B4C',
+        title: 'Welcome, Agricultural Expert!',
+        desc: 'Monetize your expertise by teaching courses and offering paid consultations to farmers across Nigeria.',
+        points: ['Set your own prices', 'Teach on your schedule', 'Payments go straight to your wallet'],
+        screen: null,
+        cta: null,
+      },
+      {
+        icon: '📚', bg: '#fef3c7', color: '#d97706',
+        title: 'Create Your First Course',
+        desc: 'Build a structured online course — add modules, upload a cover image, set a price and publish to all farmers.',
+        points: ['Organise content into modules', 'Free or paid — you decide', 'Farmers can enrol instantly'],
+        screen: 'create-course',
+        cta: 'Create a Course',
+      },
+      {
+        icon: '📅', bg: '#ede9fe', color: '#7c3aed',
+        title: 'Set Your Consultation Schedule',
+        desc: 'Define the days and times you are available. Farmers browse your slots and book a video call with you.',
+        points: ['Add available slots by date and time', 'Farmers pay when they book', 'Video call link generated automatically'],
+        screen: 'expert-schedule',
+        cta: 'Set My Availability',
+      },
+      {
+        icon: '💰', bg: '#dbeafe', color: '#2563eb',
+        title: 'Track Earnings & Students',
+        desc: 'Your dashboard shows total students, consultation count, average rating and revenue — updated in real time.',
+        points: ['Revenue broken down by course and consultation', 'See which courses are most popular', 'Withdraw earnings to your bank'],
+        screen: 'expert-dashboard',
+        cta: 'View My Dashboard',
+      },
+    ],
+    cooperative: [
+      {
+        icon: '🤝', bg: '#e8f5ee', color: '#1E8B4C',
+        title: 'Welcome, Cooperative Manager!',
+        desc: 'Manage your cooperative digitally — register members, apply for group loans and buy agricultural inputs in bulk.',
+        points: ['Full member directory', 'Group loan applications', 'Bulk purchasing power'],
+        screen: null,
+        cta: null,
+      },
+      {
+        icon: '👥', bg: '#fef3c7', color: '#d97706',
+        title: 'Register Your Members',
+        desc: 'Add all cooperative members with their farm details, location and contact information. Keep your directory up to date.',
+        points: ['Add members with name, phone and LGA', 'Record farm type and acreage', 'Search and filter your full list'],
+        screen: 'coop-members',
+        cta: 'Add Members',
+      },
+      {
+        icon: '🏦', bg: '#ede9fe', color: '#7c3aed',
+        title: 'Apply for Group Loans',
+        desc: 'Submit loan applications on behalf of your cooperative. Access agricultural financing from partner institutions.',
+        points: ['Specify loan amount and purpose', 'Submit supporting details', 'Track application status in real time'],
+        screen: 'coop-loans',
+        cta: 'Apply for a Loan',
+      },
+      {
+        icon: '📊', bg: '#dbeafe', color: '#2563eb',
+        title: 'Your Cooperative Dashboard',
+        desc: 'See your total member count, active members, loan portfolio and recent activity — all at a glance.',
+        points: ['Member stats and activity feed', 'Loan history and repayment status', 'Quick links to key actions'],
+        screen: 'coop-dashboard',
+        cta: 'View Dashboard',
+      },
+    ],
+    institution: [
+      {
+        icon: '🏛️', bg: '#e8f5ee', color: '#1E8B4C',
+        title: 'Welcome, Financial Institution!',
+        desc: 'Disburse agricultural loans to verified cooperatives, monitor spend compliance and track your full loan portfolio.',
+        points: ['Verified cooperative applicants only', 'Real-time portfolio tracking', 'Compliance monitoring built in'],
+        screen: null,
+        cta: null,
+      },
+      {
+        icon: '📋', bg: '#fef3c7', color: '#d97706',
+        title: 'Review Loan Applications',
+        desc: 'Receive and evaluate loan applications from registered cooperatives. Approve, reject or request more information.',
+        points: ['Full cooperative profile and member list', 'Requested amount and purpose', 'One-click approve or decline'],
+        screen: 'coop-loans',
+        cta: 'View Applications',
+      },
+      {
+        icon: '📈', bg: '#ede9fe', color: '#7c3aed',
+        title: 'Track Your Portfolio',
+        desc: 'Monitor all active loans — disbursement dates, repayment schedules, outstanding balances and compliance status.',
+        points: ['Full loan history per cooperative', 'Repayment tracking and alerts', 'Portfolio performance summary'],
+        screen: null,
+        cta: null,
+      },
+    ],
   };
 
-  const flow  = flows[role] || flows.farmer;
+  const steps = flows[role] || flows.farmer;
   let current = 0;
+
+  const dismiss = () => {
+    modal.remove();
+    localStorage.setItem('ac_onboarded', '1');
+  };
 
   const modal = document.createElement('div');
   modal.id = 'onboarding-modal';
-  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px;';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);';
 
   const render = () => {
-    const step = flow.steps[current];
-    const isLast = current === flow.steps.length - 1;
-    modal.innerHTML = `
-      <div style="background:white;border-radius:24px;padding:36px 32px;width:100%;max-width:400px;text-align:center;position:relative;">
-        <button onclick="document.getElementById('onboarding-modal').remove();localStorage.setItem('ac_onboarded','1')"
-          style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray-400);">×</button>
+    const step   = steps[current];
+    const isLast = current === steps.length - 1;
+    const pct    = Math.round(((current + 1) / steps.length) * 100);
 
-        <!-- STEP DOTS -->
-        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:24px;">
-          ${flow.steps.map((_, i) => `
-            <div style="width:${i===current?'20px':'8px'};height:8px;border-radius:4px;
-                        background:${i===current?'var(--green)':'var(--gray-200)'};
-                        transition:all .3s;"></div>
-          `).join('')}
+    modal.innerHTML = `
+      <div style="background:white;border-radius:24px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.25);">
+
+        <!-- PROGRESS BAR -->
+        <div style="height:4px;background:#f3f4f6;">
+          <div style="height:4px;background:${step.color};width:${pct}%;transition:width .4s ease;"></div>
         </div>
 
-        <div style="font-size:56px;margin-bottom:16px;">${step.icon}</div>
-        <h2 style="font-size:var(--text-xl);font-weight:700;color:var(--gray-900);margin-bottom:10px;">${current === 0 ? flow.title : step.title}</h2>
-        <p style="font-size:var(--text-sm);color:var(--gray-500);line-height:1.7;margin-bottom:28px;max-width:300px;margin-left:auto;margin-right:auto;">${current === 0 ? step.desc : step.desc}</p>
+        <!-- ICON PANEL -->
+        <div style="background:${step.bg};padding:32px 32px 24px;text-align:center;">
+          <div style="font-size:64px;line-height:1;margin-bottom:0;">${step.icon}</div>
+        </div>
 
-        <button onclick="window._onboardNext()"
-          style="width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:var(--radius-full);font-size:var(--text-base);font-weight:700;font-family:var(--font);cursor:pointer;">
-          ${isLast ? 'Get Started →' : 'Next →'}
-        </button>
-        ${current > 0 ? `
-        <button onclick="window._onboardPrev()"
-          style="width:100%;margin-top:10px;padding:10px;background:none;color:var(--gray-400);border:none;font-size:var(--text-sm);font-family:var(--font);cursor:pointer;">← Back</button>` : ''}
+        <!-- CONTENT -->
+        <div style="padding:24px 28px 28px;">
+          <!-- Step counter + skip -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <span style="font-size:12px;font-weight:600;color:${step.color};letter-spacing:.05em;text-transform:uppercase;">Step ${current + 1} of ${steps.length}</span>
+            <button onclick="window._onboardDismiss()" style="font-size:12px;color:#9ca3af;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;">Skip tour</button>
+          </div>
+
+          <h2 style="font-size:20px;font-weight:800;color:#111827;margin-bottom:10px;line-height:1.3;">${step.title}</h2>
+          <p style="font-size:14px;color:#6b7280;line-height:1.7;margin-bottom:16px;">${step.desc}</p>
+
+          <!-- BULLET POINTS -->
+          <ul style="margin:0 0 24px;padding:0;list-style:none;">
+            ${step.points.map(p => `
+              <li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+                <span style="width:20px;height:20px;border-radius:50%;background:${step.bg};color:${step.color};font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">✓</span>
+                <span style="font-size:14px;color:#374151;line-height:1.5;">${p}</span>
+              </li>
+            `).join('')}
+          </ul>
+
+          <!-- ACTIONS -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            ${step.screen ? `
+              <button onclick="window._onboardGoThere()" style="width:100%;padding:13px;background:${step.color};color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;">
+                ${step.cta} →
+              </button>` : ''}
+            <div style="display:flex;gap:10px;">
+              ${current > 0 ? `
+                <button onclick="window._onboardPrev()" style="flex:1;padding:12px;background:#f9fafb;color:#374151;border:1px solid #e5e7eb;border-radius:12px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;">← Back</button>
+              ` : ''}
+              <button onclick="window._onboardNext()" style="flex:2;padding:12px;background:${step.screen ? '#f9fafb' : step.color};color:${step.screen ? '#374151' : 'white'};border:${step.screen ? '1px solid #e5e7eb' : 'none'};border-radius:12px;font-size:14px;font-weight:${step.screen ? '600' : '700'};font-family:inherit;cursor:pointer;">
+                ${isLast ? (step.screen ? 'Skip & Finish' : 'Get Started →') : (step.screen ? 'Skip this step' : 'Next →')}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>`;
   };
 
-  window._onboardNext = () => {
-    if (current < flow.steps.length - 1) {
-      current++;
-      render();
-    } else {
-      modal.remove();
-      localStorage.setItem('ac_onboarded', '1');
-    }
-  };
-  window._onboardPrev = () => {
-    if (current > 0) { current--; render(); }
-  };
+  window._onboardNext    = () => { if (current < steps.length - 1) { current++; render(); } else dismiss(); };
+  window._onboardPrev    = () => { if (current > 0) { current--; render(); } };
+  window._onboardDismiss = () => dismiss();
+  window._onboardGoThere = () => { dismiss(); AC_STATE.navigate(steps[current].screen); };
 
   document.body.appendChild(modal);
   render();
