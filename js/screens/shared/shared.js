@@ -1459,6 +1459,7 @@ profile() {
       { icon:'❓', label:'Help Centre',   action:`showToast('Help centre coming soon','')` },
       { icon:'🌱', label:'Live Chat',     action:`showToast('Connecting you to support...','success')` },
       { icon:'⭐', label:'Rate the App',  action:`showToast('Thanks for the feedback! 🌱','success')` },
+      { icon:'🗺️', label:'Replay App Tour', action:`localStorage.removeItem('ac_onboarded');AC_SCREENS.showOnboarding(AC_STATE.user.role)` },
       { icon:'🌱', label:'Log Out',       action:`AC_STATE.logout()`, danger:true },
     ]},
   ];
