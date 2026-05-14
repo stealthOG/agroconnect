@@ -819,6 +819,52 @@ async sendPasswordReset() {
   }
 },
 
+passwordReset() {
+  return `
+  <div style="min-height:100vh;background:#f9fafb;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div style="background:white;border-radius:20px;padding:40px 32px;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.1);text-align:center;">
+      <div style="width:72px;height:72px;background:#e8f5ee;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">🔒</div>
+      <h2 style="font-size:24px;font-weight:800;color:#111827;margin-bottom:8px;">Set New Password</h2>
+      <p style="color:#6b7280;font-size:14px;margin-bottom:28px;line-height:1.6;">Enter your new password below.</p>
+      <div style="text-align:left;margin-bottom:16px;">
+        <label style="font-size:14px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">New Password</label>
+        <input id="pr-password" type="password" placeholder="At least 8 characters"
+          style="width:100%;height:46px;padding:0 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:inherit;box-sizing:border-box;">
+      </div>
+      <div style="text-align:left;margin-bottom:24px;">
+        <label style="font-size:14px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">Confirm Password</label>
+        <input id="pr-confirm" type="password" placeholder="Repeat your new password"
+          style="width:100%;height:46px;padding:0 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:inherit;box-sizing:border-box;">
+      </div>
+      <button id="pr-btn" onclick="AC_SCREENS.handlePasswordReset()" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:16px;">Reset Password</button>
+      <p style="font-size:13px;color:#9ca3af;">Back to <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
+    </div>
+  </div>`;
+},
+
+async handlePasswordReset() {
+  const password = document.getElementById('pr-password')?.value;
+  const confirm  = document.getElementById('pr-confirm')?.value;
+  if (!password || password.length < 8) { showToast('Password must be at least 8 characters', 'error'); return; }
+  if (password !== confirm) { showToast('Passwords do not match', 'error'); return; }
+
+  const token = window._passwordResetToken;
+  if (!token) { showToast('Invalid or expired reset link', 'error'); showAuthScreen('login'); return; }
+
+  const btn = document.getElementById('pr-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Resetting...'; }
+
+  try {
+    await AC_API.auth.resetConfirm(token, password);
+    window._passwordResetToken = null;
+    showToast('Password reset successfully! Please log in.', 'success');
+    showAuthScreen('login');
+  } catch (err) {
+    showToast(err.data?.error ?? err.message ?? 'Reset failed — link may have expired', 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Reset Password'; }
+  }
+},
+
 });
 
 /* ═══════════════════════════════════════════════════════════
@@ -898,6 +944,9 @@ async function handleLogin() {
     AC_STATE.user.avatarUrl   = u.avatarUrl   ?? null;
     AC_STATE.user.lga         = u.lga         ?? '';
     AC_STATE.user.state       = u.state       ?? '';
+    AC_STATE.user.coopName    = u.coopName    ?? '';
+    AC_STATE.user.coopId      = u.coopId      ?? '';
+    AC_STATE.user.institution = u.institution ?? '';
     AC_STATE.user.accountStatus = u.accountStatus;
 
     showApp(u.role);
@@ -1022,6 +1071,9 @@ async function handleOtp() {
     AC_STATE.user.avatarUrl = u.avatarUrl   ?? null;
     AC_STATE.user.lga       = u.lga         ?? '';
     AC_STATE.user.state     = u.state       ?? '';
+    AC_STATE.user.coopName    = u.coopName    ?? '';
+    AC_STATE.user.coopId      = u.coopId      ?? '';
+    AC_STATE.user.institution = u.institution ?? '';
     AC_STATE.user.accountStatus = u.accountStatus;
 
     showApp(u.role);

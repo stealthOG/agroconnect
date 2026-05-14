@@ -137,17 +137,30 @@ supplierDashboard() {
    MY LISTINGS
 ───────────────────────────────────────────── */
 myListings() {
-  const listings = [
-    { emoji:'🌱', name:'Hybrid Maize',    id:'PRD-001', cat:'Cereals',    price:15000, stock:450, status:'Active'      },
-    { emoji:'🌱', name:'Rice (FARO 44)',  id:'PRD-002', cat:'Cereals',    price:25000, stock:280, status:'Active'      },
-    { emoji:'🌱', name:'Tomato',          id:'PRD-003', cat:'Vegetables', price:8000,  stock:850, status:'Active'      },
-    { emoji:'🌱', name:'Potato',          id:'PRD-004', cat:'Tubers',     price:12000, stock:125, status:'Active'      },
-    { emoji:'🌱', name:'Sorghum',         id:'PRD-005', cat:'Cereals',    price:18000, stock:0,   status:'Out of Stock'},
-    { emoji:'🌱', name:'Spinach',         id:'PRD-006', cat:'Vegetables', price:6500,  stock:320, status:'Active'      },
-  ];
-  const tabs = [['All',24],['Active',20],['Draft',3],['Out of Stock',1]];
+  if (AC_STATE._myListingsCache === undefined) {
+    AC_STATE._myListingsCache = null;
+    AC_API.products.list({ supplierId: AC_STATE.user.id }).then(res => {
+      AC_STATE._myListingsCache = res.data ?? res ?? [];
+      if (AC_STATE.currentScreen === 'my-listings') AC_ROUTER.show('my-listings');
+    }).catch(() => {
+      AC_STATE._myListingsCache = undefined;
+      if (AC_STATE.currentScreen === 'my-listings') AC_ROUTER.show('my-listings');
+    });
+  }
+  if (AC_STATE._myListingsCache === null) return AC_UI.listSkeletons(4);
+  if (AC_STATE._myListingsCache === undefined) return AC_UI.error({ retryFn: "AC_STATE._myListingsCache=undefined;AC_ROUTER.show('my-listings')" });
+
+  const listings = AC_STATE._myListingsCache;
+  const active    = listings.filter(l => l.status === 'active'  || l.isPublished).length;
+  const outOfStock= listings.filter(l => (l.stock ?? l.quantity ?? 0) === 0).length;
+  const tabs = [['All', listings.length], ['Active', active], ['Out of Stock', outOfStock]];
   let activeTab = 'All';
 
+  const getStatus = (l) => {
+    if (!l.isPublished) return 'Draft';
+    if ((l.stock ?? l.quantity ?? 0) === 0) return 'Out of Stock';
+    return 'Active';
+  };
   const statusStyle = (s) => s==='Active'
     ? 'background:#F0FDF4;color:#16A34A;'
     : s==='Out of Stock'
@@ -187,20 +200,23 @@ myListings() {
         `).join('')}
       </div>
       <!-- ROWS -->
-      ${listings.map(l => `
+      ${listings.length === 0 ? `<div style="padding:40px;text-align:center;color:#6B7280;">No products yet. <span onclick="AC_STATE.navigate('upload-product')" style="color:#1E8B4C;cursor:pointer;font-weight:700;">Add your first product →</span></div>` : listings.map(l => {
+        const stock = l.stock ?? l.quantity ?? 0;
+        const status = getStatus(l);
+        return `
         <div style="display:grid;grid-template-columns:3fr 1fr 1fr 1fr 1fr 40px;gap:0;padding:14px 20px;border-bottom:1px solid #F3F4F6;align-items:center;" onmouseenter="this.style.background='#FAFAFA'" onmouseleave="this.style.background='white'">
           <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:44px;height:44px;background:#F0FDF4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">${l.emoji}</div>
+            <div style="width:44px;height:44px;background:#F0FDF4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">${l.emoji || '🌱'}</div>
             <div>
               <div style="font-size:14px;font-weight:700;color:#111827;">${l.name}</div>
-              <div style="font-size:12px;color:#9CA3AF;">1kg bag - ID: #${l.id}</div>
+              <div style="font-size:12px;color:#9CA3AF;">ID: #${l.id?.slice(0,8) ?? '—'}</div>
             </div>
           </div>
-          <div style="font-size:13px;color:#374151;">${l.cat}</div>
-          <div style="font-size:13px;font-weight:700;color:#111827;">₦${l.price.toLocaleString()}</div>
-          <div style="font-size:13px;font-weight:700;color:${l.stock===0?'#EF4444':l.stock<50?'#D97706':'#16A34A'};">${l.stock}</div>
+          <div style="font-size:13px;color:#374151;">${l.category ?? l.inputType ?? '—'}</div>
+          <div style="font-size:13px;font-weight:700;color:#111827;">₦${(l.price ?? 0).toLocaleString()}</div>
+          <div style="font-size:13px;font-weight:700;color:${stock===0?'#EF4444':stock<50?'#D97706':'#16A34A'};">${stock}</div>
           <div>
-            <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;${statusStyle(l.status)}">${l.status}</span>
+            <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;${statusStyle(status)}">${status}</span>
           </div>
           <div style="position:relative;">
             <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'" style="background:none;border:none;font-size:18px;cursor:pointer;color:#6B7280;padding:4px;">⋮</button>
@@ -211,12 +227,12 @@ myListings() {
             </div>
           </div>
         </div>
-      `).join('')}
+      `; }).join('')}
     </div>
 
     <!-- PAGINATION -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;flex-wrap:wrap;gap:8px;">
-      <span style="font-size:13px;color:#6B7280;">Showing 1-6 of 24 products</span>
+      <span style="font-size:13px;color:#6B7280;">Showing ${listings.length} product${listings.length===1?'':'s'}</span>
       <div style="display:flex;gap:4px;align-items:center;">
         <button style="padding:7px 12px;border:1px solid #E5E7EB;border-radius:6px;background:white;font-size:13px;cursor:pointer;color:#374151;">← Prev</button>
         ${[1,2,3].map(n => `<button style="width:32px;height:32px;border:${n===1?'none':'1px solid #E5E7EB'};border-radius:6px;background:${n===1?'#1E8B4C':'white'};color:${n===1?'white':'#374151'};font-size:13px;font-weight:${n===1?'700':'400'};cursor:pointer;">${n}</button>`).join('')}

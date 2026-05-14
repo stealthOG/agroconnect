@@ -521,6 +521,18 @@ const AC_STATE = {
     this.loadCart();
     this.loadWishlist();
 
+    /* If URL has ?token=..., intercept and show password reset screen */
+    const urlParams = new URLSearchParams(window.location.search);
+    const resetToken = urlParams.get('token');
+    if (resetToken) {
+      window._passwordResetToken = resetToken;
+      /* Remove token from URL without reload */
+      window.history.replaceState({}, '', window.location.pathname);
+      /* Show password reset screen after DOM is ready */
+      setTimeout(() => showAuthScreen('passwordReset'), 100);
+      return;
+    }
+
     const token = this.getToken();
     if (token) {
       this.user.isLoggedIn = true;
@@ -536,6 +548,9 @@ const AC_STATE = {
           this.user.avatarUrl = u.avatarUrl ?? null;
           this.user.lga       = u.lga       ?? this.user.lga;
           this.user.state     = u.state     ?? this.user.state;
+          this.user.coopName    = u.coopName    ?? this.user.coopName;
+          this.user.coopId      = u.coopId      ?? this.user.coopId;
+          this.user.institution = u.institution ?? this.user.institution;
           this.user.accountStatus = u.accountStatus ?? this.user.accountStatus;
           /* Update header initials if already shown */
           const av = document.getElementById('user-avatar');
