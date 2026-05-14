@@ -168,6 +168,16 @@ login() {
         <span onclick="showAuthScreen('forgotPassword')" style="color:#1E8B4C;font-size:13px;font-weight:600;cursor:pointer;">Forgot password?</span>
       </div>
       <button id="login-btn" onclick="handleLogin()" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px;">Log in</button>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
+        <span style="color:#9ca3af;font-size:12px;white-space:nowrap;">or continue with</span>
+        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;">
+        ${AC_SCREENS._socialBtn('google')}
+        ${AC_SCREENS._socialBtn('facebook')}
+        ${AC_SCREENS._socialBtn('apple')}
+      </div>
       <p style="text-align:center;font-size:14px;color:#6b7280;">Don't have an account? <span onclick="showAuthScreen('roleSelection')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Sign up</span></p>
     </div>
   </div>`;
@@ -238,7 +248,17 @@ signupFarmer() {
         <input type="checkbox" id="farmer-terms" style="width:16px;height:16px;margin-top:2px;accent-color:#1E8B4C;flex-shrink:0;">
         <span style="font-size:13px;color:#6b7280;line-height:1.5;">I agree to the <span style="color:#1E8B4C;font-weight:600;">Terms & Conditions</span></span>
       </label>
-      <button onclick="handleSignup('farmer')" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px;">Create Account</button>
+      <button onclick="handleSignup('farmer')" style="width:100%;padding:14px;background:#1E8B4C;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:16px;">Create Account</button>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
+        <span style="color:#9ca3af;font-size:12px;white-space:nowrap;">or continue with</span>
+        <hr style="flex:1;border:none;border-top:1px solid #e5e7eb;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;">
+        ${AC_SCREENS._socialBtn('google')}
+        ${AC_SCREENS._socialBtn('facebook')}
+        ${AC_SCREENS._socialBtn('apple')}
+      </div>
       <p style="text-align:center;font-size:13px;color:#6b7280;">Already have an account? <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
     </div>
   </div>`;
@@ -822,6 +842,81 @@ passwordReset() {
       <p style="font-size:13px;color:#9ca3af;">Back to <span onclick="showAuthScreen('login')" style="color:#1E8B4C;font-weight:700;cursor:pointer;">Log in</span></p>
     </div>
   </div>`;
+},
+
+_socialBtn(provider) {
+  const icons = {
+    google:   `<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>`,
+    facebook: `<svg width="20" height="20" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+    apple:    `<svg width="20" height="20" viewBox="0 0 814 1000"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-105.5C115.7 781.5 65 737 65 737c-.4-.4-.4-.4-.4-.4C25.7 698 0 652.7 0 596.8c0-158.7 122.3-266.4 280.9-266.4 66.7 0 122.3 37.5 163.5 37.5s102.5-42.8 166.2-42.8c33.8 0 141.1 32.8 141.1 32.8zm-161-198.4c33.8-40.2 58.2-96.5 58.2-152.8 0-7.9-.6-15.9-1.9-22.5-55.6 2.2-121.7 37.1-161.5 84.4-30.3 33.8-57.2 89.4-57.2 147.1 0 8.5 1.3 17 1.9 19.6 3.2.6 8.5 1.3 13.8 1.3 49.9 0 112.4-33.8 146.7-77.1z"/></svg>`,
+  };
+  const labels = { google: 'Google', facebook: 'Facebook', apple: 'Apple' };
+  return `<button onclick="AC_SCREENS.socialLogin('${provider}')" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 8px;background:white;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;width:100%;" onmouseenter="this.style.background='#f9fafb'" onmouseleave="this.style.background='white'">${icons[provider]}<span>${labels[provider]}</span></button>`;
+},
+
+async socialLogin(provider) {
+  const handleResponse = async (promise) => {
+    try {
+      const res = await promise;
+      const { user: u, accessToken, refreshToken } = res.data ?? res;
+      AC_STATE.setToken(accessToken);
+      AC_STATE.setRefreshToken(refreshToken);
+      AC_STATE.user.id          = u.id          ?? '';
+      AC_STATE.user.name        = u.name;
+      AC_STATE.user.initials    = u.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      AC_STATE.user.email       = u.email;
+      AC_STATE.user.phone       = u.phone;
+      AC_STATE.user.avatarUrl   = u.avatarUrl   ?? null;
+      AC_STATE.user.accountStatus = u.accountStatus;
+      showApp(u.role);
+    } catch (err) {
+      const msg = err.data?.error ?? err.message ?? `${provider} sign-in failed`;
+      showToast(msg, 'error');
+    }
+  };
+
+  if (provider === 'google') {
+    if (!window.AC_CONFIG?.GOOGLE_CLIENT_ID) { showToast('Google sign-in not configured yet', 'info'); return; }
+    if (!window.google?.accounts?.id) { showToast('Google SDK still loading — try again', 'info'); return; }
+    window.google.accounts.id.initialize({
+      client_id: window.AC_CONFIG.GOOGLE_CLIENT_ID,
+      callback: (response) => handleResponse(AC_API.auth.googleLogin(response.credential)),
+    });
+    window.google.accounts.id.prompt();
+
+  } else if (provider === 'facebook') {
+    if (!window.AC_CONFIG?.FACEBOOK_APP_ID) { showToast('Facebook sign-in not configured yet', 'info'); return; }
+    if (!window.FB) {
+      window.fbAsyncInit = () => {
+        window.FB.init({ appId: window.AC_CONFIG.FACEBOOK_APP_ID, cookie: true, xfbml: true, version: 'v19.0' });
+        window.FB.login(r => {
+          if (r.authResponse) handleResponse(AC_API.auth.facebookLogin(r.authResponse.accessToken));
+          else showToast('Facebook sign-in cancelled', 'info');
+        }, { scope: 'email,public_profile' });
+      };
+      return;
+    }
+    window.FB.login(r => {
+      if (r.authResponse) handleResponse(AC_API.auth.facebookLogin(r.authResponse.accessToken));
+      else showToast('Facebook sign-in cancelled', 'info');
+    }, { scope: 'email,public_profile' });
+
+  } else if (provider === 'apple') {
+    if (!window.AC_CONFIG?.APPLE_CLIENT_ID) { showToast('Apple sign-in not configured yet', 'info'); return; }
+    if (!window.AppleID) { showToast('Apple SDK still loading — try again', 'info'); return; }
+    try {
+      window.AppleID.auth.init({
+        clientId: window.AC_CONFIG.APPLE_CLIENT_ID,
+        scope: 'name email',
+        redirectURI: window.location.origin,
+        usePopup: true,
+      });
+      const data = await window.AppleID.auth.signIn();
+      handleResponse(AC_API.auth.appleLogin(data.authorization.id_token, data.user));
+    } catch (err) {
+      if (err && err.error !== 'popup_closed_by_user') showToast('Apple sign-in failed', 'error');
+    }
+  }
 },
 
 async handlePasswordReset() {

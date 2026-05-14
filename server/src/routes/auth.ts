@@ -11,6 +11,7 @@ import {
   requestPasswordReset,
   confirmPasswordReset,
 } from '../controllers/auth.controller';
+import { googleLogin, facebookLogin, appleLogin } from '../controllers/social-auth.controller';
 
 const router = Router();
 
@@ -35,5 +36,9 @@ router.post('/otp/send',              otpLimit,  asyncHandler(sendOtp));
 router.post('/otp/verify',            otpLimit,  asyncHandler(verifyOtp));
 router.post('/password-reset/request',authLimit, asyncHandler(requestPasswordReset));
 router.post('/password-reset/confirm',authLimit, asyncHandler(confirmPasswordReset));
+
+router.post('/social/google',         authLimit, asyncHandler(googleLogin));
+router.post('/social/facebook',       authLimit, asyncHandler(facebookLogin));
+router.post('/social/apple',          authLimit, asyncHandler(appleLogin));
 
 export default router;

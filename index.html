@@ -17,6 +17,10 @@
 
   <!-- Paystack inline payment popup -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
+  <!-- Social auth SDKs -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 
   <!-- Security: sanitize all HTML before DOM insertion -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"
@@ -291,6 +295,9 @@ window.AC_CONFIG = {
   MAPBOX_API_KEY:        '',           // e.g. 'pk.eyJ1...'
   SENTRY_DSN_FRONTEND:   '',           // e.g. 'https://...@sentry.io/...'
   WHATSAPP_NUMBER:       '',           // e.g. '+2348012345678' (your Twilio WhatsApp number)
+  GOOGLE_CLIENT_ID:      '',           // e.g. '123456789-abc.apps.googleusercontent.com'
+  FACEBOOK_APP_ID:       '',           // e.g. '123456789012345'
+  APPLE_CLIENT_ID:       '',           // e.g. 'com.yourcompany.agroconnect.web'
   ENV:                   'production',
   VERSION:               '0.1.0',
 };

@@ -98,6 +98,9 @@ const AC_API = (() => {
     verifyOtp:      (phone, code)      => post('/auth/otp/verify', { phone, code }),
     resetRequest:   (email)            => post('/auth/password-reset/request', { email }),
     resetConfirm:   (token, password)  => post('/auth/password-reset/confirm', { token, password }),
+    googleLogin:    (idToken)          => post('/auth/social/google',   { idToken }),
+    facebookLogin:  (accessToken)      => post('/auth/social/facebook', { accessToken }),
+    appleLogin:     (idToken, user)    => post('/auth/social/apple',    { idToken, user }),
   };
 
   /* ══════════════════════════════════════════
